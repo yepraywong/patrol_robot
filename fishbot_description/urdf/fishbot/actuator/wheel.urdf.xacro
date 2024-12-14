@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+    <xacro:include filename="$(find fishbot_description)/urdf/fishbot/common_inertial.xacro"/>
+    <xacro:macro name="wheel_xacro" params="wheel_name xyz">
+        <link name="${wheel_name}_link">
+            <!-- Components' appearance -->
+            <visual>
+                <!-- Offset and rotation along it's own geometric center -->
+                <!-- wheels need to be rowed 90 degree (1.57079) -->
+                <origin xyz="0.0 0.0 0.0" rpy="1.57079 0.0 0.0"/>
+                <!-- Geometry -->
+                <geometry>
+                    <cylinder radius="0.032" length="0.04"/>
+                </geometry>
+                <!-- Material and color -->
+                <material name="yellow">
+                    <!-- a is transparency -->
+                    <color rgba="1.0 1.0 0.0 0.8"/>
+                </material>
+            </visual>
+
+            <collision>
+                <!-- Offset and rotation along it's own geometric center -->
+                <!-- wheels need to be rowed 90 degree (1.57079) -->
+                <origin xyz="0.0 0.0 0.0" rpy="1.57079 0.0 0.0"/>
+                <!-- Geometry -->
+                <geometry>
+                    <cylinder radius="0.032" length="0.04"/>
+                </geometry>
+                <!-- Material and color -->
+                <material name="yellow">
+                    <!-- a is transparency -->
+                    <color rgba="1.0 1.0 0.0 0.8"/>
+                </material>
+            </collision>
+
+            <xacro:cylinder_inertia m="0.05" r="0.032" h="0.04"/>
+            
+        </link> 
+
+        <!-- Robot's joint (combine robot's components) -->
+        <!-- the param 'continuous' for type' denots the wheel is rotatable -->
+        <joint name="${wheel_name}_joint" type="continuous">
+            <!-- param 'origin' is the location of components placement -->
+            <origin xyz="${xyz}" rpy="0.0 0.0 0.0"/>
+            <parent link="base_link"/>
+            <child link="${wheel_name}_link"/>
+            <!-- THe wheel rotate around the y-axis -->
+            <axis xyz="0.0 1.0 0.0"/>
+        </joint>
+
+        <!-- add friction in gazebo -->
+        <!-- mu1 Tangential friction coefficient 切向 default 1.0 -->
+        <!-- mu2 Normal friction coefficient 法向 default 1.0 -->
+        <!-- kp Stiffness coefficient 刚度系数 default 10000000000.0-->
+        <!-- kd Damping coefficient 阻尼系数 default 1.0-->
+        <gazebo reference="${wheel_name}_link">
+            <mu1 value="20.0"/>
+            <mu2 value="20.0"/>
+            <kp value="1000000000.0"/>
+            <kd value="1.0"/>
+        </gazebo>
+
+    </xacro:macro>
+
+</robot>

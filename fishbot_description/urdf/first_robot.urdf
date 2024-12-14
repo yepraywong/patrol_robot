@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot name="first_robot">
+    <!-- Robot's body -->
+    <link name="base_link">
+        <!-- Components' appearance -->
+        <visual>
+            <!-- Offset and rotation along it's own geometric center -->
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <!-- Geometry -->
+            <geometry>
+                <!-- length is height (m) -->
+                <cylinder radius="0.10" length="0.12"/>
+            </geometry>
+            <!-- Material and color -->
+            <material name="white">
+                <!-- a is transparency -->
+                <color rgba="1.0 1.0 1.0 0.5"/>
+            </material>
+        </visual>
+    </link>
+
+    <!-- Robot's IMU -->
+    <link name="imu_link">
+        <!-- Components' appearance -->
+        <visual>
+            <!-- Offset and rotation along it's own geometric center -->
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <!-- Geometry -->
+            <geometry>
+                <!-- add a cube with lengths of 2cm -->
+                <box size="0.02 0.02 0.02"/>
+            </geometry>
+            <!-- Material and color -->
+            <material name="black">
+                <!-- a is transparency -->
+                <color rgba="0.0 0.0 0.0 0.5"/>
+            </material>
+        </visual>
+    </link> 
+
+    <!-- Robot's joint (combine robot's components) -->
+    <!-- the param 'type' denots how components place on the joint -->
+    <joint name="imu_joint" type="fixed">
+        <!-- param 'origin' is the location of components placement -->
+        <origin xyz="0.0 0.0 0.03" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="imu_link"/>
+    </joint>
+</robot>

@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find fishbot_description)/urdf/fishbot/common_inertial.xacro"/>
+    <xacro:macro name="laser_xacro" params="xyz">
+        <!-- laser mounting pole -->
+        <link name="laser_cylinder_link">
+            <!-- Components' appearance -->
+            <visual>
+                <!-- Offset and rotation along it's own geometric center -->
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <!-- Geometry -->
+                <geometry>
+                    <cylinder radius="0.01" length="0.10"/>
+                </geometry>
+                <!-- Material and color -->
+                <material name="black">
+                    <!-- a is transparency -->
+                    <color rgba="0.0 0.0 0.0 1.0"/>
+                </material>
+            </visual>
+
+            <collision>
+                <!-- Offset and rotation along it's own geometric center -->
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <!-- Geometry -->
+                <geometry>
+                    <cylinder radius="0.01" length="0.10"/>
+                </geometry>
+                <!-- Material and color -->
+                <material name="black">
+                    <!-- a is transparency -->
+                    <color rgba="0.0 0.0 0.0 1.0"/>
+                </material>
+            </collision>
+
+            <xacro:cylinder_inertia m="0.05" r="0.01" h="0.10"/>
+            
+        </link> 
+
+        <!-- laser's body -->
+        <link name="laser_link">
+            <!-- Components' appearance -->
+            <visual>
+                <!-- Offset and rotation along it's own geometric center -->
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <!-- Geometry -->
+                <geometry>
+                    <cylinder radius="0.02" length="0.02"/>
+                </geometry>
+                <!-- Material and color -->
+                <material name="black">
+                    <!-- a is transparency -->
+                    <color rgba="0.0 0.0 0.0 1.0"/>
+                </material>
+            </visual>
+
+            <collision>
+                <!-- Offset and rotation along it's own geometric center -->
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <!-- Geometry -->
+                <geometry>
+                    <cylinder radius="0.02" length="0.02"/>
+                </geometry>
+                <!-- Material and color -->
+                <material name="black">
+                    <!-- a is transparency -->
+                    <color rgba="0.0 0.0 0.0 1.0"/>
+                </material>
+            </collision>
+
+            <xacro:cylinder_inertia m="0.10" r="0.02" h="0.02"/>
+
+        </link> 
+
+        <!-- Fix the radar onto the support rod -->
+        <!-- the param 'type' denots how components place on the joint -->
+        <joint name="laser_joint" type="fixed">
+            <!-- param 'origin' is the location of components placement -->
+            <!-- the laser's center point is in the pole's vertex -->
+            <origin xyz="0.0 0.0 0.05" rpy="0.0 0.0 0.0"/>
+            <parent link="laser_cylinder_link"/>
+            <child link="laser_link"/>
+        </joint>
+
+        <!-- Fix the radar onto the support rod -->
+        <!-- the param 'type' denots how components place on the joint -->
+        <joint name="laser_cylinder_joint" type="fixed">
+            <!-- param 'origin' is the location of components placement -->
+            <!-- the laser's center point is in the pole's vertex -->
+            <origin xyz="${xyz}" rpy="0.0 0.0 0.0"/>
+            <parent link="base_link"/>
+            <child link="laser_cylinder_link"/>
+        </joint>
+
+        <!-- laser's colour in gazebo -->
+        <gazebo reference="laser_cylinder_link">
+            <material>Gazebo/Black</material>
+        </gazebo>
+        <gazebo reference="laser_link">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+    </xacro:macro>
+
+</robot>
