@@ -36,7 +36,7 @@ class PatrolNode(BasicNavigator):
         # the defaout path is the workspace
         self.declare_parameter('img_save_path', '')
         self.img_save_path_ = self.get_parameter('img_save_path').value
-        # convert imahe format
+        # convert image format
         self.cv_bridge_ = CvBridge()
         # Save the latest image in real-time
         self.lastest_img_ = None
