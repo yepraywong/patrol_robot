@@ -55,6 +55,10 @@
             <child link="base_link"/>
         </joint>
 
+        <gazebo reference="base_link">
+            <material>Gazebo/Blue</material>
+        </gazebo>
+
     </xacro:macro>
     
 

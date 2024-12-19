@@ -94,7 +94,7 @@
 
         <!-- laser's colour in gazebo -->
         <gazebo reference="laser_cylinder_link">
-            <material>Gazebo/Black</material>
+            <material>Gazebo/Yellow</material>
         </gazebo>
         <gazebo reference="laser_link">
             <material>Gazebo/Black</material>
