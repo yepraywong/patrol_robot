@@ -1,0 +1,14 @@
+material WalkabilityMap
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture walkability_map.png
+        scale 1.0 1.0
+      }
+    }
+  }
+}
